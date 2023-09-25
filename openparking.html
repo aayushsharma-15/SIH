@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transparent Drawer</title>
+    <link rel="stylesheet" href="openstyles.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <button id="openDrawer">
+                <div class="logo">UrbanPark</div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#fff" class="bi bi-list" viewBox="0 0 16 16">
+                    <path d="M2 3.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zM2 6.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zM2 9.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zM2 12.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
+                </svg>
+            </button>            
+            <div class="user-type-dropdown">
+                    <select id="userType" onchange="changeUserType()">
+                        <option value="user">User</option>
+                        <option value="provider">Host</option>
+                    </select>
+
+        </header>
+        <div id="map" style="height: 100%;"></div>
+        <aside class="drawer">
+            <div class="drawer-header">
+                <h2 style="color: #fdba32;"id="usernameDisplay"></h2>
+                <button id="closeDrawer">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#fdba32" class="bi bi-x" viewBox="0 0 16 16">
+                        <path d="M8 7.293L12.354 2.94a1 1 0 1 1 1.415 1.414L9.414 8l4.354 4.354a1 1 0 1 1-1.415 1.414L8 8.707l-4.354 4.353a1 1 0 1 1-1.415-1.414L6.586 8 2.232 3.646a1 1 0 1 1 1.415-1.414L8 7.293z"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="frame">
+                <div class="left-heading">Pashchim vihar,  P1</div>
+                <div class="content">
+                    <div class="input-container">
+                        <label for="vehicleNumber">Vehicle Number</label>
+                        <input type="text" id="vehicleNumber" class="name-input" placeholder="Enter your vehicle number">
+                    </div>
+                    <div class="input-container">
+                        <label for="entryTime">Time</label>
+                        <input type="time" id="entryTime" class="time-input" placeholder="Entry Time">
+                    </div>
+                </div>
+                <button id="enterButton">Enter</button>
+                <button id="closeButton">&#10005;</button>
+            </div>
+            
+            <nav>
+                <ul>
+                    <li><a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fff" class="bi bi-clock" viewBox="0 0 16 16"><path d="M8.5 1a7.5 7.5 0 1 0 0 15 7.5 7.5 0 0 0 0-15zM8 2a6 6 0 1 1 0 12A6 6 0 0 1 8 2z"/><path d="M8 3a5 5 0 1 0 0 10A5 5 0 0 0 8 3z"/><path d="M8.5 4.5a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.5.5H8a.5.5 0 0 1-.5-.5V5a.5.5 0 0 1 .5-.5z"/></svg> Parking History</a></li>
+                    <li><a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fff" class="bi bi-credit-card" viewBox="0 0 16 16"><path d="M0 3.5A.5.5 0 0 1 .5 3h15a.5.5 0 0 1 .5.5V12a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5V3.5zm1-1a.5.5 0 0 1 .5-.5h14a.5.5 0 0 1 .5.5V13a.5.5 0 0 1-.5.5H1a.5.5 0 0 1-.5-.5V2.5z"/><path d="M1 4.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm12-6h-1a.5.5 0 0 1 0-1h1a.5.5 0 0 1 .5.5zm0 2h-1a.5.5 0 0 1 0-1h1a.5.5 0 0 1 .5.5zm0 2h-1a.5.5 0 0 1 0-1h1a.5.5 0 0 1 .5.5zm0 2h-1a.5.5 0 0 1 0-1h1a.5.5 0 0 1 .5.5z"/></svg> Credit Cards</a></li>
+                    <li><a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fff" class="bi bi-plate" viewBox="0 0 16 16"><path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm2-1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v3H2V1zM1 10a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-3zm1 1a.5.5 0 0 0 .5.5h12a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5H2a.5.5 0 0 0-.5.5v3z"/></svg> Plates</a></li>
+                    <li><a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fff" class="bi bi-gear" viewBox="0 0 16 16"><path d="M7.5 1.938v-.875a.623.623 0 0 1 1.001-.475l1.09.761a6.43 6.43 0 0 1 1.856-.956l.215-1.177a.623.623 0 0 1 1.188 0l.215 1.177a6.43 6.43 0 0 1 1.856.956l1.09-.761a.623.623 0 0 1 1.002.475v.875a6.423 6.423 0 0 1-.954 1.855l.761 1.091a.623.623 0 0 1 0 1.188l-.761 1.09a6.423 6.423 0 0 1-.954 1.856l.761 1.09a.623.623 0 0 1 0 1.188l-.761 1.09a6.423 6.423 0 0 1-.956.954l-1.09-.761a.623.623 0 0 1-1.188 0l-1.09.761a6.423 6.423 0 0 1-.956-.954l-1.09-.761a.623.623 0 0 1 0-1.188l1.09-.761a6.423 6.423 0 0 1 .954-.956l-.761-1.09a.623.623 0 0 1-.475-1.002zM8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg> Settings</a></li>
+                    <li><a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fff" class="bi bi-cash" viewBox="0 0 16 16"><path d="M4 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5V.5a.5.5 0 0 1 .5-.5H4zm-1 4.5V4H1v.5h2zm-2 1v6H4v-6H1zm3 6v-6H4v6h2zm10-6v2a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V5h-.121a3.49 3.49 0 0 0-1.086-1.166l.707-.708a.5.5 0 0 1 .793 0l.707.708A3.49 3.49 0 0 0 11.121 5H11v1.5a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5V5H8v1.5a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5V5H5v2.5a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-2H0v6.5a.5.5 0 0 1 .5.5h15a.5.5 0 0 1 .5-.5z"/> </svg>Charges</a></li>
+                    <li><a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fff" class="bi bi-info" viewBox="0 0 16 16"><path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zm0 1a7 7 0 0 0 0 14A7 7 0 0 0 8 1zm-.93 5.132a.566.566 0 0 1 .567-.566h.8a.566.566 0 0 1 .566.566v4.516a.566.566 0 0 1-.566.566h-.8a.566.566 0 0 1-.567-.566V6.132zM8 5a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg> About Us</a></li>
+                </ul>
+
+            </nav>
+        
+        </aside>
+
+    </div>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="openscript.js"></script>
+</body>
+</html>
